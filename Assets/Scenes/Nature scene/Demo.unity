@@ -11968,6 +11968,8 @@ GameObject:
   - component: {fileID: 1125402713}
   - component: {fileID: 1125402718}
   - component: {fileID: 1125402708}
+  - component: {fileID: 1125402719}
+  - component: {fileID: 1125402720}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12448,6 +12450,36 @@ MonoBehaviour:
   dx11BokehTexture: {fileID: 2800000, guid: a4cdca73d61814d33ac1587f6c163bca, type: 3}
   dx11BokehScale: 1.2
   dx11BokehIntensity: 2.5
+--- !u!136 &1125402719
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125402705}
+  m_Material: {fileID: 13400000, guid: 84d6daec477efce4ca43e8119ef6414c, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1125402720
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125402705}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1001 &1126976666
 PrefabInstance:
   m_ObjectHideFlags: 0
