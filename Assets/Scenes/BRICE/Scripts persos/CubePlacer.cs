@@ -209,7 +209,7 @@ public class CubePlacer : MonoBehaviour
         thisScene.cubes = cubesToSave;
         Debug.Log(JsonUtility.ToJson(scenesList));
 
-        File.WriteAllText(Application.dataPath + "/scenes.json", JsonUtility.ToJson(scenesList));
+        File.WriteAllText(Application.dataPath + "/scenes.json", JsonUtility.ToJson(scenesList, true));
 
     }
 

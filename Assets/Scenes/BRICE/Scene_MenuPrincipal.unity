@@ -1419,9 +1419,9 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Demo
-      m_Image: {fileID: 0}
     - m_Text: HouseCPY
+      m_Image: {fileID: 0}
+    - m_Text: DemoCPY
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2743,7 +2743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Demo
+  m_Text: HouseCPY
 --- !u!222 &1636687515
 CanvasRenderer:
   m_ObjectHideFlags: 0
