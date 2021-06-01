@@ -109,6 +109,11 @@ public class EventManager : MonoBehaviour
             );
     }
 
+    public void btn_leaveClicked()
+    {
+        Application.Quit();
+    }
+
     public void SetScene(string newScene)
     {
         Debug.Log("New Scene : " + newScene);
