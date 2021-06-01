@@ -57,9 +57,31 @@ public class EventManager : MonoBehaviour
             );
     }
 
+    public void btn_quitClicked()
+    {
+        Debug.Log("Switching to main menu...");
+        GameObject anchor = GameObject.Find("Anchor");
+        SceneManager.LoadScene("Scene_MenuPrincipal");
+    }
+
+    public void btn_saveClicked()
+    {
+        Debug.Log("Saving");
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.GetComponent<CubePlacer>().SaveNewObjects();
+    }
+
+    public void btn_placeCubeClicked()
+    {
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.GetComponent<CubePlacer>().StartPlacing();
+    }
+
     public void SetScene(string newScene)
     {
         Debug.Log("New Scene : " + newScene);
         sceneToLoad = newScene;
     }
+
+
 }

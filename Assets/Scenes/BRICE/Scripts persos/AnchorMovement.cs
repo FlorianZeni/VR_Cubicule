@@ -44,27 +44,32 @@ public class AnchorMovement : MonoBehaviour
     {
         bInTransition = true;
         float currentRotation = transform.eulerAngles.y % 360;
-        if(currentRotation > 180)
+        if (currentRotation > 180)
         {
             currentRotation -= 360;
         }
-        Debug.Log((float)rotation - currentRotation);
-        Debug.Log(currentRotation);
-        float elapsed;
-        while (elapsedForNow < transitionDuration)
+        if ((int)rotation == (int)currentRotation)
         {
-            elapsed = Time.deltaTime;
-            elapsedForNow += elapsed;
-            transform.Rotate(
-                new Vector3(
-                    0,
-                    ((float)rotation - currentRotation) * elapsed / transitionDuration,
-                    0)
-                );
             yield return new WaitForEndOfFrame();
         }
-        bInTransition = false;
-        transform.eulerAngles = new Vector3(0, (float)rotation, 0);
-        elapsedForNow = 0.0f;
+        else
+        {
+            float elapsed;
+            while (elapsedForNow < transitionDuration)
+            {
+                elapsed = Time.deltaTime;
+                elapsedForNow += elapsed;
+                transform.Rotate(
+                    new Vector3(
+                        0,
+                        ((float)rotation - currentRotation) * elapsed / transitionDuration,
+                        0)
+                    );
+                yield return new WaitForEndOfFrame();
+            }
+            bInTransition = false;
+            transform.eulerAngles = new Vector3(0, (float)rotation, 0);
+            elapsedForNow = 0.0f;
+        }
     }
 }
