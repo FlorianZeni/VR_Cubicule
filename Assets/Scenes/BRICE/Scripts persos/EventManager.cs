@@ -20,7 +20,7 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);   
 
         instance = this;
-        sceneToLoad = "HouseCPY";
+        PlayerPrefs.SetString("sceneToLoad", "HouseCPY");
     }
 
     // Update is called once per frame
