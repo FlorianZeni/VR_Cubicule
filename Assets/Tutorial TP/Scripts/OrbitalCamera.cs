@@ -44,7 +44,7 @@ public class OrbitalCamera : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, origin.position, -1.0f * speed * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             sphere.transform.position = transform.position + transform.forward * 2.0f;

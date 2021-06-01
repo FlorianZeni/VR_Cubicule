@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Tutorial TP/Scenes/Scene01.unity
+    guid: 45d5420930f74594bacd64af3f9d0953
+  - enabled: 0
     path: Assets/Scenes/Scene_MenuPrincipal.unity
     guid: 5d231eff3c66eaa44a2fb9fe85df48d8
   - enabled: 0
@@ -14,10 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Nature scene/Demo.unity
     guid: 977dfbc208607a74389165edea68968e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HouseCPY.unity
     guid: 41de7f8aeb7483545ba5954390de2df6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DemoCPY.unity
     guid: 0c9e86468696fb34f91bc451334fc4fe
   m_configObjects:
