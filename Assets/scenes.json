@@ -42,7 +42,15 @@
         },
         {
             "name": "HouseCPY",
-            "prefabs": []
+            "prefabs": [
+                {
+                    "prefabIndex": 0,
+                    "locationX": 4.707056522369385,
+                    "locationY": 0.14951097965240479,
+                    "locationZ": 3.293332576751709,
+                    "rotation": 0.0
+                }
+            ]
         }
     ]
 }
