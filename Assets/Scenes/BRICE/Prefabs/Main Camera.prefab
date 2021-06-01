@@ -137,6 +137,16 @@ MonoBehaviour:
   currentPlacementRotation: 0
   switchCooldown: 0.5
   state: 0
+  prefabs:
+  - {fileID: 954084755821030394, guid: 0f6b50c9b816b864a87ffb63311319f4, type: 3}
+  - {fileID: 275525812661051888, guid: 5be072868794eb54db46f16e8d27f320, type: 3}
+  - {fileID: 3417134267261978827, guid: e9f043d3911a1d048abafdc1add03c6b, type: 3}
+  - {fileID: 9047507309437800168, guid: 0bade597ec05a694b94a10457591a022, type: 3}
+  - {fileID: 8678966657095480485, guid: 11a9ccad81478e54687fe1b01029f7b3, type: 3}
+  - {fileID: 7312505250839695866, guid: a8fb629fbd22b8e49b19e23bbbff421a, type: 3}
+  - {fileID: 3820034767378866495, guid: 4eec25b0167d60e4cadc0f7618608bd0, type: 3}
+  - {fileID: 2068263917053750551, guid: fb468710491518f42a565b34d6373922, type: 3}
+  - {fileID: 8210439703499067839, guid: b3efaeb7c96a80d47bf9f230449dbd22, type: 3}
 --- !u!136 &3572383084115052097
 CapsuleCollider:
   m_ObjectHideFlags: 0

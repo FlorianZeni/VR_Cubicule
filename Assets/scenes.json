@@ -2,25 +2,33 @@
     "scenes": [
         {
             "name": "DemoCPY",
-            "cubes": [
+            "prefabs": [
                 {
-                    "locationX": -83.02989196777344,
-                    "locationY": 5.71747350692749,
-                    "locationZ": 41.255638122558597,
+                    "prefabIndex": 0,
+                    "locationX": -81.98043823242188,
+                    "locationY": 6.23486328125,
+                    "locationZ": 41.894657135009769,
+                    "rotation": 0.0
+                },
+                {
+                    "prefabIndex": 2,
+                    "locationX": -85.19927978515625,
+                    "locationY": 6.290773868560791,
+                    "locationZ": 38.85809326171875,
+                    "rotation": 336.0
+                },
+                {
+                    "prefabIndex": 0,
+                    "locationX": -79.55496215820313,
+                    "locationY": 6.051914215087891,
+                    "locationZ": 44.34770965576172,
                     "rotation": 0.0
                 }
             ]
         },
         {
             "name": "HouseCPY",
-            "cubes": [
-                {
-                    "locationX": 4.088223457336426,
-                    "locationY": 0.9089856743812561,
-                    "locationZ": 4.570500373840332,
-                    "rotation": 0.0
-                }
-            ]
+            "prefabs": []
         }
     ]
 }

@@ -42,15 +42,22 @@ public class CubePlacer : MonoBehaviour
 
     GameObject cube;
 
-    private List<GameObject> placedObjects;
+    private Dictionary<GameObject, int> placedObjects;
 
     JSONScene thisScene;
 
     ListaScenes scenesList;
 
+    [SerializeField]
+    public List<GameObject> prefabs;
+
+    [SerializeField]
+    private int index;
+
     public enum State
     {
         INITIAL_STATE,
+        TYPE_STATE,
         POSITION_STATE,
         ROTATION_STATE
     }
@@ -62,6 +69,7 @@ public class CubePlacer : MonoBehaviour
 
     private void Awake()
     {
+        index = 0;
         LoadOldObjects(SceneManager.GetActiveScene().name);
     }
 
@@ -85,15 +93,24 @@ public class CubePlacer : MonoBehaviour
     public void StartPlacing()
     {
         state = State.POSITION_STATE;
-        cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube = GameObject.Instantiate(prefabs[index]);
         currentPlacementDistance = defaultPlacementDistance;
         currentPlacementRotation = defaultPlacementRotation;
     }
 
     private void SaveCube()
     {
-        placedObjects.Add(GameObject.Instantiate(cube));
+        placedObjects.Add(GameObject.Instantiate(cube), index);
         Destroy(cube);
+    }
+
+    private void UpdateObjectType()
+    {
+        Transform tr = cube.transform;
+        Destroy(cube);
+        cube = GameObject.Instantiate(prefabs[index]);
+        cube.transform.position = tr.position;
+        cube.transform.rotation = tr.rotation;
     }
 
     private void SelectInput()
@@ -103,7 +120,40 @@ public class CubePlacer : MonoBehaviour
             return;
         }
 
-        if(state == State.POSITION_STATE)
+        if (state == State.TYPE_STATE)
+        {
+            if(Input.mouseScrollDelta.y > 0)
+            {
+                index += 1;
+                index = index % prefabs.Count;
+                UpdateObjectType();
+            }
+            else if (Input.mouseScrollDelta.y < 0)
+            {
+                index -= 1;
+                index = (index + prefabs.Count) % prefabs.Count;
+                UpdateObjectType();
+            }
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Destroy(cube);
+                state = State.INITIAL_STATE;
+                return;
+            }
+            if (Input.GetKey(KeyCode.Return))
+            {
+                SaveCube();
+                state = State.INITIAL_STATE;
+                return;
+            }
+            if (Input.GetKey(KeyCode.E) && currentSwitch >= switchCooldown)
+            {
+                state = State.POSITION_STATE;
+                currentSwitch = 0.0f;
+            }
+        }
+
+        if (state == State.POSITION_STATE)
         {
             currentPlacementDistance += Input.mouseScrollDelta.y;
 
@@ -149,7 +199,7 @@ public class CubePlacer : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.E) && currentSwitch >= switchCooldown)
             {
-                state = State.POSITION_STATE;
+                state = State.TYPE_STATE;
                 currentSwitch = 0.0f;
             }
         }
@@ -161,7 +211,7 @@ public class CubePlacer : MonoBehaviour
         state = State.INITIAL_STATE;
         currentSwitch = switchCooldown;
         cube = null;
-        placedObjects = new List<GameObject>();
+        placedObjects = new Dictionary<GameObject, int>();
 
         string path = Application.dataPath + "/scenes.json";
         string json = File.ReadAllText(path);
@@ -172,21 +222,21 @@ public class CubePlacer : MonoBehaviour
             if(scene.name == sceneName)
             {
                 thisScene = scene;
-                foreach(JSONCube jsonCube in scene.cubes)
+                foreach(JSONPrefab jsonPrefab in scene.prefabs)
                 {
-                    GameObject cubeToLoad = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    GameObject cubeToLoad = GameObject.Instantiate(prefabs[jsonPrefab.prefabIndex]);
                     cubeToLoad.transform.position = new Vector3(
-                        jsonCube.locationX,
-                        jsonCube.locationY,
-                        jsonCube.locationZ
+                        jsonPrefab.locationX,
+                        jsonPrefab.locationY,
+                        jsonPrefab.locationZ
                         );
 
                     cubeToLoad.transform.Rotate(new Vector3(
                         0.0f,
-                        jsonCube.rotation,
+                        jsonPrefab.rotation,
                         0.0f));
 
-                    placedObjects.Add(cubeToLoad);
+                    placedObjects.Add(cubeToLoad, jsonPrefab.prefabIndex);
                 }
             }
         }
@@ -194,20 +244,21 @@ public class CubePlacer : MonoBehaviour
 
     public void SaveNewObjects()
     {
-        List<JSONCube> cubesToSave = new List<JSONCube>();
+        List<JSONPrefab> prefabsToSave = new List<JSONPrefab>();
         Debug.Log(placedObjects.Count);
 
-        foreach(GameObject cubeToSave in placedObjects)
+        foreach(GameObject cubeToSave in placedObjects.Keys)
         {
-            JSONCube cubeData = new JSONCube();
-            cubeData.locationX = cubeToSave.transform.position.x;
-            cubeData.locationY = cubeToSave.transform.position.y;
-            cubeData.locationZ = cubeToSave.transform.position.z;
-            cubeData.rotation = cubeToSave.transform.eulerAngles.y;
-            cubesToSave.Add(cubeData);
+            JSONPrefab prefabData = new JSONPrefab();
+            prefabData.prefabIndex = placedObjects[cubeToSave];
+            prefabData.locationX = cubeToSave.transform.position.x;
+            prefabData.locationY = cubeToSave.transform.position.y;
+            prefabData.locationZ = cubeToSave.transform.position.z;
+            prefabData.rotation = cubeToSave.transform.eulerAngles.y;
+            prefabsToSave.Add(prefabData);
         }
 
-        thisScene.cubes = cubesToSave;
+        thisScene.prefabs = prefabsToSave;
         Debug.Log(JsonUtility.ToJson(scenesList));
 
         File.WriteAllText(Application.dataPath + "/scenes.json", JsonUtility.ToJson(scenesList, true));
@@ -215,8 +266,9 @@ public class CubePlacer : MonoBehaviour
     }
 
     [System.Serializable]
-    public class JSONCube
+    public class JSONPrefab
     {
+        public int prefabIndex;
         public float locationX;
         public float locationY;
         public float locationZ;
@@ -227,7 +279,7 @@ public class CubePlacer : MonoBehaviour
     public class JSONScene
     {
         public string name;
-        public List<JSONCube> cubes;
+        public List<JSONPrefab> prefabs;
     }
 
     [System.Serializable]
