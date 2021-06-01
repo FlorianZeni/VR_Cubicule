@@ -1869,6 +1869,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 8346076910979389026, guid: 5788e19783548d241b2263c9e694f235, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346076910979389026, guid: 5788e19783548d241b2263c9e694f235, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346076910979389026, guid: 5788e19783548d241b2263c9e694f235, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346076910979389026, guid: 5788e19783548d241b2263c9e694f235, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 8346076910979389031, guid: 5788e19783548d241b2263c9e694f235, type: 3}
       propertyPath: m_IsActive
       value: 0
