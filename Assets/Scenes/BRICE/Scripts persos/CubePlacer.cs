@@ -76,18 +76,18 @@ public class CubePlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentSwitch += Time.deltaTime;
-        if(cube != null)
-        {
-            UpdateCube();
-        }
+        UpdateCube();
     }
 
     private void UpdateCube()
     {
         SelectInput();
-        cube.transform.position = transform.position + currentPlacementDistance * transform.forward;
-        cube.transform.eulerAngles = new Vector3(0, currentPlacementRotation, 0);
+        if(cube != null)
+        {
+            cube.transform.position = transform.position + currentPlacementDistance * transform.forward;
+            cube.transform.eulerAngles = new Vector3(0, currentPlacementRotation, 0);
+
+        }
     }
 
     public void StartPlacing()
@@ -115,6 +115,19 @@ public class CubePlacer : MonoBehaviour
 
     private void SelectInput()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            gameObject.transform.Find("IG_UI").gameObject.SetActive(
+                !gameObject.transform.Find("IG_UI").gameObject.activeInHierarchy
+                );
+            return;
+        }
+
+        if(cube == null)
+        {
+            return;
+        }
+
         if(state == State.INITIAL_STATE)
         {
             return;
@@ -134,22 +147,22 @@ public class CubePlacer : MonoBehaviour
                 index = (index + prefabs.Count) % prefabs.Count;
                 UpdateObjectType();
             }
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Destroy(cube);
                 state = State.INITIAL_STATE;
                 return;
             }
-            if (Input.GetKey(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 SaveCube();
                 state = State.INITIAL_STATE;
                 return;
             }
-            if (Input.GetKey(KeyCode.E) && currentSwitch >= switchCooldown)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 state = State.POSITION_STATE;
-                currentSwitch = 0.0f;
+                return;
             }
         }
 
@@ -159,22 +172,22 @@ public class CubePlacer : MonoBehaviour
 
             currentPlacementDistance = Mathf.Max(currentPlacementDistance, minPlacementDistance);
             currentPlacementDistance = Mathf.Min(currentPlacementDistance, maxPlacementDistance);
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Destroy(cube);
                 state = State.INITIAL_STATE;
                 return;
             }
-            if (Input.GetKey(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 SaveCube();
                 state = State.INITIAL_STATE;
                 return;
             }
-            if (Input.GetKey(KeyCode.E) && currentSwitch >= switchCooldown)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 state = State.ROTATION_STATE;
-                currentSwitch = 0.0f;
+                return;
             }
             return;
         }
@@ -185,22 +198,22 @@ public class CubePlacer : MonoBehaviour
 
             currentPlacementRotation = Mathf.Max(currentPlacementRotation, -180.0f);
             currentPlacementRotation = Mathf.Min(currentPlacementRotation, 180.0f);
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Destroy(cube);
                 state = State.INITIAL_STATE;
                 return;
             }
-            if (Input.GetKey(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 SaveCube();
                 state = State.INITIAL_STATE;
                 return;
             }
-            if (Input.GetKey(KeyCode.E) && currentSwitch >= switchCooldown)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 state = State.TYPE_STATE;
-                currentSwitch = 0.0f;
+                return;
             }
         }
     }

@@ -23,6 +23,20 @@
                     "locationY": 6.051914215087891,
                     "locationZ": 44.34770965576172,
                     "rotation": 0.0
+                },
+                {
+                    "prefabIndex": 3,
+                    "locationX": -71.13690185546875,
+                    "locationY": 3.7789149284362795,
+                    "locationZ": 44.24699401855469,
+                    "rotation": 344.0
+                },
+                {
+                    "prefabIndex": 6,
+                    "locationX": -76.74110412597656,
+                    "locationY": 5.266782760620117,
+                    "locationZ": 51.09589385986328,
+                    "rotation": 347.0
                 }
             ]
         },
