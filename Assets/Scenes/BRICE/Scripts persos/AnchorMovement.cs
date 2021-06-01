@@ -9,7 +9,8 @@ public class AnchorMovement : MonoBehaviour
     {
         MAINMENU = 0,
         SELECT_SCENE = -90,
-        SETTINGS = 90
+        SETTINGS = 90,
+        MUSIC = 180
     }
 
     [SerializeField]
@@ -48,7 +49,18 @@ public class AnchorMovement : MonoBehaviour
         {
             currentRotation -= 360;
         }
-        if ((int)rotation == (int)currentRotation)
+        int toRotate = (int)rotation;
+        if(toRotate == 180 && Mathf.Abs((int)currentRotation) == 90)
+        {
+
+            toRotate *= (int)currentRotation / 90;
+        }
+        if ((int)currentRotation == 180 && Mathf.Abs(toRotate) == 90)
+        {
+            currentRotation *= (int)toRotate / 90;
+        }
+
+        if (toRotate == (int)currentRotation)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -62,13 +74,13 @@ public class AnchorMovement : MonoBehaviour
                 transform.Rotate(
                     new Vector3(
                         0,
-                        ((float)rotation - currentRotation) * elapsed / transitionDuration,
+                        ((float)toRotate - currentRotation) * elapsed / transitionDuration,
                         0)
                     );
                 yield return new WaitForEndOfFrame();
             }
             bInTransition = false;
-            transform.eulerAngles = new Vector3(0, (float)rotation, 0);
+            transform.eulerAngles = new Vector3(0, (float)toRotate, 0);
             elapsedForNow = 0.0f;
         }
     }

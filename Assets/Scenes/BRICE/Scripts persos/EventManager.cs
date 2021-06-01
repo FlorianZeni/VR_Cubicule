@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.UI;
+
 public class EventManager : MonoBehaviour
 {
 
     [SerializeField]
-    private string sceneToLoad = "";
+    public string sceneToLoad = ""; 
+    
+    private static EventManager instance;
+    public static EventManager Instance { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (instance != null && instance != this)
+            Destroy(gameObject);   
+
+        instance = this;
         sceneToLoad = "HouseCPY";
     }
 
@@ -24,7 +32,8 @@ public class EventManager : MonoBehaviour
     public void btn_startClicked()
     {
         Debug.Log("Start clicked !");
-        SceneManager.LoadScene(sceneToLoad);
+        Debug.Log(PlayerPrefs.GetString("sceneToLoad"));
+        SceneManager.LoadScene(PlayerPrefs.GetString("sceneToLoad"));
     }
 
     public void btn_chooseConfigClicked()
@@ -60,7 +69,6 @@ public class EventManager : MonoBehaviour
     public void btn_quitClicked()
     {
         Debug.Log("Switching to main menu...");
-        GameObject anchor = GameObject.Find("Anchor");
         SceneManager.LoadScene("Scene_MenuPrincipal");
     }
 
@@ -77,10 +85,34 @@ public class EventManager : MonoBehaviour
         camera.GetComponent<CubePlacer>().StartPlacing();
     }
 
+    public void btn_playClicked()
+    {
+        Dropdown music = GameObject.Find("Music Dropdown").GetComponent<Dropdown>();
+
+        string text = music.options[music.value].text;
+        GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioPlayer>().SetClip(text);
+
+    }
+
+    public void btn_stopClicked()
+    {
+        GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioPlayer>().StopMusic();
+    }
+
+    public void btn_musicClicked()
+    {
+        Debug.Log("Switching to music menu...");
+        GameObject anchor = GameObject.Find("Anchor");
+
+        anchor.GetComponent<AnchorMovement>().SelectTransition(
+            AnchorMovement.MenuRotation.MUSIC
+            );
+    }
+
     public void SetScene(string newScene)
     {
         Debug.Log("New Scene : " + newScene);
-        sceneToLoad = newScene;
+        PlayerPrefs.SetString("sceneToLoad", newScene);
     }
 
 
