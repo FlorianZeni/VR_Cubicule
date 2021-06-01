@@ -121,6 +121,10 @@ public class CubePlacer : MonoBehaviour
                 !gameObject.transform.Find("IG_UI").gameObject.activeInHierarchy
                 );
             Cursor.visible = gameObject.transform.Find("IG_UI").gameObject.activeInHierarchy;
+            if (Cursor.visible)
+                Cursor.lockState = CursorLockMode.Confined;
+            else
+                Cursor.lockState = CursorLockMode.None;
             return;
         }
 

@@ -14,12 +14,14 @@ public class FlyCamera : MonoBehaviour
     {
 
         //move camera with mouse
-
-        lastMouse = Input.mousePosition - lastMouse;
-        lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
-        lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
-        transform.eulerAngles = lastMouse;
-        lastMouse = Input.mousePosition;
+        if(!Cursor.visible)
+        {
+            lastMouse = Input.mousePosition - lastMouse;
+            lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
+            lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
+            transform.eulerAngles = lastMouse;
+            lastMouse = Input.mousePosition;
+        }
 
         //end of move camera with mouse
 
