@@ -1,3 +1,13 @@
+Controls :
+
+E - Changer entre Mode Modifier la position / Modifier la rotation / Modifier le type d'objet
+Espace - Masquer l'UI
+ZQSD - Déplacement
+Entrée - Sauvegarder le placement de l'objet
+ECHAP - Annuler le placement de l'objet
+
+------------
+
 Musics :
 
 herbal tea by Artificial.Music | https://soundcloud.com/artificial-music/
