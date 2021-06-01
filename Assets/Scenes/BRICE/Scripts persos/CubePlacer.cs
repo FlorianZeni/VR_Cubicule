@@ -186,6 +186,7 @@ public class CubePlacer : MonoBehaviour
                         jsonCube.rotation,
                         0.0f));
 
+                    placedObjects.Add(cubeToLoad);
                 }
             }
         }
